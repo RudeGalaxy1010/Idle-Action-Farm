@@ -275,6 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682ada16c693db94783145366acf1928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _waveDuration: 2
   _stacksPoint: {fileID: 5811205099112724234}
 --- !u!1 &4073613987400413206
 GameObject:
