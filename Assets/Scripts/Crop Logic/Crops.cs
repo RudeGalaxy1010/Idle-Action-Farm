@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public class Crops : MonoBehaviour
+namespace IdleActionFarm
 {
-    [SerializeField] private Crop[] _crops;
-
-    private void Update()
+    public class Crops : MonoBehaviour
     {
-        foreach (var crop in _crops)
+        [SerializeField] private Crop[] _crops;
+
+        private void Update()
         {
-            crop.Grow(Time.deltaTime);
+            foreach (var crop in _crops)
+            {
+                crop.Grow(Time.deltaTime);
+            }
         }
     }
 }

@@ -1,55 +1,61 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wheat : Crop
+namespace IdleActionFarm
 {
-    [SerializeField] private Vector3 _startScale;
-    [SerializeField] private GameObject[] _parts;
-    [SerializeField] private Color _startColor;
-    [SerializeField] private Color _endColor;
-
-    private List<Material> _partsMaterials;
-
-    private void Start()
+    public class Wheat : Crop
     {
-        _partsMaterials = new List<Material>();
+        [SerializeField] private Vector3 _startScale;
+        [SerializeField] private GameObject[] _parts;
+        [SerializeField] private Color _startColor;
+        [SerializeField] private Color _endColor;
+        [SerializeField] private Stack _stackPrefab;
 
-        foreach (var part in _parts)
+        private List<Material> _partsMaterials;
+
+        private void Start()
         {
-            _partsMaterials.Add(part.GetComponent<Renderer>().material);
+            _partsMaterials = new List<Material>();
+
+            foreach (var part in _parts)
+            {
+                _partsMaterials.Add(part.GetComponent<Renderer>().material);
+            }
+
+            ResetGrow();
         }
 
-        ResetGrow();
-    }
-
-    public override void Grow(float tickTime)
-    {
-        Timer += tickTime;
-        transform.localScale = Vector3.MoveTowards(transform.localScale, Vector3.one, tickTime / GrowTime);
-
-        foreach (var material in _partsMaterials)
+        public override void Grow(float tickTime)
         {
-            float r = Mathf.MoveTowards(material.color.r, _endColor.r, tickTime / GrowTime);
-            float g = Mathf.MoveTowards(material.color.g, _endColor.g, tickTime / GrowTime);
-            float b = Mathf.MoveTowards(material.color.b, _endColor.b, tickTime / GrowTime);
+            Timer += tickTime;
+            transform.localScale = Vector3.MoveTowards(transform.localScale, Vector3.one, tickTime / GrowTime);
 
-            material.color = new Color(r, g, b);
+            foreach (var material in _partsMaterials)
+            {
+                float r = Mathf.MoveTowards(material.color.r, _endColor.r, tickTime / GrowTime);
+                float g = Mathf.MoveTowards(material.color.g, _endColor.g, tickTime / GrowTime);
+                float b = Mathf.MoveTowards(material.color.b, _endColor.b, tickTime / GrowTime);
+
+                material.color = new Color(r, g, b);
+            }
         }
-    }
 
-    public override void Cut()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void ResetGrow()
-    {
-        transform.localScale = _startScale;
-        Timer = 0;
-
-        foreach (var material in _partsMaterials)
+        public override void Cut()
         {
-            material.color = _startColor;
+            Quaternion rotation = Quaternion.Euler(new Vector3(0, 180 * Random.value, 0));
+            Instantiate(_stackPrefab, transform.position, rotation);
+            ResetGrow();
+        }
+
+        public override void ResetGrow()
+        {
+            transform.localScale = _startScale;
+            Timer = 0;
+
+            foreach (var material in _partsMaterials)
+            {
+                material.color = _startColor;
+            }
         }
     }
 }
