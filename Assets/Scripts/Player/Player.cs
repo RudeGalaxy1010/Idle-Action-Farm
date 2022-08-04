@@ -7,9 +7,6 @@ namespace IdleActionFarm
         [SerializeField] private Storage _storage;
         private int _score;
 
-        public bool TryAddStack(Stack stack)
-        {
-            return _storage.TryAddStack();
-        }
+        public IStorage Storage => _storage;
     }
 }

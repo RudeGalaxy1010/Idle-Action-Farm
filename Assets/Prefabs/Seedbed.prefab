@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
   _crop: {fileID: 5539811521905671383}
-  _interactionDistance: 3
+  _interactionDistance: 5
 --- !u!1001 &1287337225670352573
 PrefabInstance:
   m_ObjectHideFlags: 0

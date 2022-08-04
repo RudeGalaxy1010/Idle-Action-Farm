@@ -12,7 +12,7 @@ namespace IdleActionFarm
                 return;
             }
 
-            if (player.TryAddStack(this))
+            if (player.Storage.TryAddStack())
             {
                 Destroy(gameObject);
             }
