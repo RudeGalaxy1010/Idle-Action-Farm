@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace IdleActionFarm
 {
     public class Storage : MonoBehaviour, IStorage
     {
+        public event UnityAction<int> StacksCountChanged;
+
         [SerializeField] private int _capacity = 40;
         [SerializeField] private float _throwingDelay;
         [SerializeField] private List<StackView> _stacksView;
@@ -13,6 +16,7 @@ namespace IdleActionFarm
         private int _activeStackIndex;
 
         public int StacksCount => _activeStackIndex + 1;
+        public int Capacity => _capacity;
         public bool HasStacks => _activeStackIndex >= 0;
         public bool IsFull => _activeStackIndex == _capacity - 1;
 
@@ -24,6 +28,8 @@ namespace IdleActionFarm
             {
                 stackView.gameObject.SetActive(false);
             }
+
+            StacksCountChanged?.Invoke(StacksCount);
         }
 
         public bool TryAddStack()
@@ -35,6 +41,7 @@ namespace IdleActionFarm
 
             _activeStackIndex++;
             _stacksView[_activeStackIndex].gameObject.SetActive(true);
+            StacksCountChanged?.Invoke(StacksCount);
             return true;
         }
 
@@ -47,6 +54,7 @@ namespace IdleActionFarm
 
             _stacksView[_activeStackIndex].gameObject.SetActive(false);
             _activeStackIndex--;
+            StacksCountChanged?.Invoke(StacksCount);
             return true;
         }
 
@@ -55,6 +63,7 @@ namespace IdleActionFarm
             stackView.MoveCompleted -= RemoveStack;
             stackView.gameObject.SetActive(false);
             _activeStackIndex--;
+            StacksCountChanged?.Invoke(StacksCount);
         }
 
         public void ThrowStacks(Vector3 targetPosition)

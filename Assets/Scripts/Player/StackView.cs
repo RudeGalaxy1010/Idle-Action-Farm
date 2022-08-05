@@ -35,6 +35,7 @@ namespace IdleActionFarm
 
         private void OnCompleteThrowing()
         {
+            MoveCompleted?.Invoke(this);
             Destroy(gameObject);
         }
     }
