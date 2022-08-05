@@ -7,10 +7,13 @@ namespace IdleActionFarm
     {
         public event UnityAction<StackView> MoveCompleted;
 
+        [SerializeField] private int _cost;
         [SerializeField] private float _movingSpeed;
 
         private Vector3 _targetPosition;
         private bool _isThrown;
+
+        public int Cost => _cost;
 
         private void Update()
         {

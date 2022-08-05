@@ -277,6 +277,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waveDuration: 2
   _stacksPoint: {fileID: 5811205099112724234}
+  _coinsPreThrowingDelay: 0.65
+  _coinsThrowingDelay: 0.05
+  _coinPrefab: {fileID: 7571371710639314087, guid: 34d42b6a633177b4a8b28fbc7554e75e, type: 3}
 --- !u!1 &4073613987400413206
 GameObject:
   m_ObjectHideFlags: 0

@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _capacity: 40
-  _throwingDelay: 0.05
+  _stackThrowingDelay: 0.05
   _stacksView:
   - {fileID: 5799299704541206739}
   - {fileID: 3770286949004482843}

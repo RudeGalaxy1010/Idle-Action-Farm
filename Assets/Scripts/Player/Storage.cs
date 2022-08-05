@@ -10,7 +10,7 @@ namespace IdleActionFarm
         public event UnityAction<int> StacksCountChanged;
 
         [SerializeField] private int _capacity = 40;
-        [SerializeField] private float _throwingDelay;
+        [SerializeField] private float _stackThrowingDelay;
         [SerializeField] private List<StackView> _stacksView;
 
         private int _activeStackIndex;
@@ -18,7 +18,9 @@ namespace IdleActionFarm
         public int StacksCount => _activeStackIndex + 1;
         public int Capacity => _capacity;
         public bool HasStacks => _activeStackIndex >= 0;
+        public bool IsEmpty => _activeStackIndex == -1;
         public bool IsFull => _activeStackIndex == _capacity - 1;
+        public int Cost => StacksCount * _stacksView[0].Cost;
 
         private void Start()
         {
@@ -73,7 +75,7 @@ namespace IdleActionFarm
                 return;
             }
 
-            StartCoroutine(ThrowStacks(targetPosition, _throwingDelay));
+            StartCoroutine(ThrowStacks(targetPosition, _stackThrowingDelay));
         }
 
         private IEnumerator ThrowStacks(Vector3 targetPosition, float delay)
