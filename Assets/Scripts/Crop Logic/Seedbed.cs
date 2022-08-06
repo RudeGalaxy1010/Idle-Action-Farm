@@ -11,10 +11,18 @@ namespace IdleActionFarm
         [SerializeField] private Crop _crop;
         [SerializeField] private float _interactionDistance;
         
-        private void OnMouseDown()
+        //private void OnMouseDown()
+        //{
+        //    float distanceToPlayer = Vector3.Distance(_player.transform.position, transform.position);
+        //    if (distanceToPlayer <= _interactionDistance && _crop.Growup)
+        //    {
+        //        _crop.Cut();
+        //    }
+        //}
+
+        private void OnTriggerEnter(Collider other)
         {
-            float distanceToPlayer = Vector3.Distance(_player.transform.position, transform.position);
-            if (distanceToPlayer <= _interactionDistance && _crop.Growup)
+            if (other.TryGetComponent(out CutTrigger cutTrigger))
             {
                 _crop.Cut();
             }
