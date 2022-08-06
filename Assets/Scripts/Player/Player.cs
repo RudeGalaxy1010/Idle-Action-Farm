@@ -7,7 +7,8 @@ namespace IdleActionFarm
 {
     public class Player : MonoBehaviour
     {
-        private const float CutTriggerActiveTime = 0.5f;
+        private const float CutTriggerDelay = 0.35f;
+        private const float CutTriggerActiveTime = 0.65f;
 
         public event UnityAction<int> MoneyChanged;
 
@@ -44,11 +45,12 @@ namespace IdleActionFarm
         private void Cut()
         {
             _animator.SetTrigger(PlayerAnimatorConstants.CutAnimation);
-            StartCoroutine(ActivateCutTrigger(CutTriggerActiveTime));
+            StartCoroutine(ActivateCutTrigger(CutTriggerDelay, CutTriggerActiveTime));
         }
 
-        private IEnumerator ActivateCutTrigger(float time)
+        private IEnumerator ActivateCutTrigger(float delay, float time)
         {
+            yield return new WaitForSeconds(delay);
             _cutTrigger.gameObject.SetActive(true);
             yield return new WaitForSeconds(time);
             _cutTrigger.gameObject.SetActive(false);
